@@ -13,12 +13,22 @@ public class Data {
     private ArrayList<String> member_list;
     private String summary;
     private ArrayList<String> tech_list;
-    boolean like;
+    boolean like = false;
 
     Data(){
         like = false;
         member_list = new ArrayList<>();
         tech_list = new ArrayList<>();
+    }
+
+    Data(String pj_name,String university,String major,String summary){
+        like = false;
+        member_list = new ArrayList<>();
+        tech_list = new ArrayList<>();
+        setPj_name(pj_name);
+        setUniversity(university);
+        setMajor(major);
+        setSummary(summary);
     }
 
     public String getPj_name() {

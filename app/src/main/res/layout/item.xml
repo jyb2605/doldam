@@ -13,8 +13,7 @@
         <ImageView
             android:id="@+id/project_img"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            app:srcCompat="@mipmap/ic_launcher" />
+            android:layout_height="fill_parent" />
 
         <ImageButton
             android:id="@+id/like_btn"
