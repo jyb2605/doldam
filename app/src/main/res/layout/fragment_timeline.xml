@@ -6,9 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.doldam.SplashActivity"
+    android:padding="20dp"
+    android:background="#e5e5e5"
     tools:layout_editor_absoluteY="81dp"
     tools:layout_editor_absoluteX="0dp">
-
+    <ListView
+        android:id="@+id/lst_work"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:dividerHeight="40dp"
+        android:background="#e5e5e5"
+        android:divider="#e5e5e5"
+        />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

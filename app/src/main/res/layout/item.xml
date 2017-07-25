@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -12,54 +11,59 @@
 
         <ImageView
             android:id="@+id/project_img"
+            android:scaleType="centerCrop"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            app:srcCompat="@mipmap/ic_launcher" />
+            android:layout_height="fill_parent" />
 
         <ImageButton
             android:id="@+id/like_btn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:background="@drawable/heart_off"
             android:layout_gravity="right"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"/>
     </FrameLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="#FFFFFF"
         android:orientation="vertical">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+
+            >
 
 
             <TextView
                 android:id="@+id/pj_name_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="DolDam"
-                android:textSize="30sp"/>
+                android:textColor="@color/colorPrimary"
+                android:textSize="25sp"/>
 
             <TextView
+                android:layout_marginLeft="10dp"
                 android:id="@+id/uni_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="인하대학교"
-                android:textSize="20sp"/>
+                android:textSize="15sp"/>
 
             <TextView
+                android:layout_marginLeft="10dp"
                 android:id="@+id/major"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="컴퓨터공학과"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -69,41 +73,28 @@
 
             <TextView
                 android:id="@+id/member1"
+                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="김하늘"
-                android:textSize="20sp" />
+                android:text="주완빈, 안진모, 한단비"
+                android:textSize="15sp" />
 
-
-            <TextView
-                android:id="@+id/member2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="박하늘"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/member3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="조하늘"
-                android:textSize="20sp" />
 
         </LinearLayout>
 
-        <EditText
+        <TextView
+            android:layout_marginTop="10dp"
             android:id="@+id/summary_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
+            android:textSize="15sp"
             android:text="돌담은 대학생들의 졸업작품을 모아볼 수 있는 어플입니다." />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -111,24 +102,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="안드로이드"
+                android:text="#안드로이드 #IoT #VR"
                 android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/used_tech_txt2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="안드로이드"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/used_tech_txt3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="안드로이드"
-                android:textSize="15sp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
