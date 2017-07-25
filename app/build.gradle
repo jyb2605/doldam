@@ -29,7 +29,8 @@ dependencies {
     /*
      * Tab LAYOUT
      */
-    compile 'com.android.support:design:23.+'
+    //noinspection GradleCompatible
+    compile 'com.android.support:design:25.3.1'
 
     testCompile 'junit:junit:4.12'
 }
