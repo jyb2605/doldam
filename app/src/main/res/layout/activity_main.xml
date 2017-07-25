@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:textSize="15sp"
+            android:textCursorDrawable="@drawable/cursor_color"
             android:hint="검색"
             android:inputType="textAutoComplete"
             android:textColor="#FFFFFF"

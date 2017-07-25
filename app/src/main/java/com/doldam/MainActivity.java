@@ -17,9 +17,11 @@ public class MainActivity extends AppCompatActivity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         MainAdapter adapter = new MainAdapter(getSupportFragmentManager());
         adapter.addFragment(new TimeLineFragment(), null);
-        adapter.addFragment(new ProfileFragment(), null);
         adapter.addFragment(new PopularFragment(), null);
         adapter.addFragment(new AttentionFragment(), null);
+        adapter.addFragment(new ProfileFragment(), null);
+
+
 
 
         viewPager.setAdapter(adapter);
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(1).setIcon(R.drawable.star);
         tabLayout.getTabAt(2).setIcon(R.drawable.heart);
         tabLayout.getTabAt(3).setIcon(R.drawable.profile);
+
+
 
         TabLayout.Tab tab = tabLayout.getTabAt(0);
         int tabIconColor = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
