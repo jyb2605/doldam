@@ -13,7 +13,8 @@ public class Data {
     private ArrayList<String> member_list;
     private String summary;
     private ArrayList<String> tech_list;
-    boolean like = false;
+    private boolean like = false;
+    private int img;
 
     Data(){
         like = false;
@@ -21,7 +22,7 @@ public class Data {
         tech_list = new ArrayList<>();
     }
 
-    Data(String pj_name,String university,String major,String summary){
+    Data(String pj_name,String university,String major,String summary,int img){
         like = false;
         member_list = new ArrayList<>();
         tech_list = new ArrayList<>();
@@ -29,6 +30,18 @@ public class Data {
         setUniversity(university);
         setMajor(major);
         setSummary(summary);
+        setImg(img);
+    }
+
+    Data(String pj_name,String university,String major,String summary,int img,boolean like){
+        this.like = like;
+        member_list = new ArrayList<>();
+        tech_list = new ArrayList<>();
+        setPj_name(pj_name);
+        setUniversity(university);
+        setMajor(major);
+        setSummary(summary);
+        setImg(img);
     }
 
     public String getPj_name() {
@@ -75,6 +88,7 @@ public class Data {
     public void addMember(String member){
         member_list.add(member);
     }
+    public int memberLength(){ return member_list.size();}
     public String getMember(int index){
         return member_list.get(index);
     }
@@ -82,8 +96,16 @@ public class Data {
     public void addTech(String tech){
         tech_list.add(tech);
     }
+    public int techLength(){ return tech_list.size(); }
     public String getTech(int index){
         return tech_list.get(index);
     }
 
+    public int getImg() {
+        return img;
+    }
+
+    public void setImg(int img) {
+        this.img = img;
+    }
 }
