@@ -2,6 +2,7 @@ package com.doldam;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -109,6 +111,15 @@ public class TimeLineFragment extends Fragment{
             else{
                 like_btn.setBackground(ContextCompat.getDrawable(convertView.getContext(),R.drawable.heart_off));
             }
+
+            LinearLayout item_layout =(LinearLayout)convertView.findViewById(R.id.item_layout);
+            item_layout.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), DetailActivity.class);
+                    startActivity(intent);
+                }
+            });
 
             // 좋아요 버튼 클릭
             final View finalConvertView = convertView;
