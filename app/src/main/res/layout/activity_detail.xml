@@ -31,13 +31,12 @@
             android:layout_height="25dp"
             android:layout_gravity="right"
             android:layout_marginLeft="5dp"
-            app:srcCompat="@drawable/heart_on"
             android:layout_marginEnd="11dp"
-            android:layout_alignBottom="@+id/project_name"
+            android:layout_alignBottom="@+id/pj_name"
             android:layout_alignParentEnd="true" />
 
         <TextView
-            android:id="@+id/project_name"
+            android:id="@+id/pj_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="30sp"
@@ -104,14 +103,14 @@
             android:layout_marginLeft="10dp"/>
 
         <TextView
-            android:id="@+id/data"
+            android:id="@+id/presentation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="18sp"
-            android:textColor="#515151"
+            android:layout_marginBottom="10dp"
             android:text="doldam.pdf"
-            android:layout_marginBottom="10dp"/>
+            android:textColor="#515151"
+            android:textSize="18sp" />
 
     </LinearLayout>
     <LinearLayout
@@ -142,33 +141,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:orientation="vertical"
-        android:background="@drawable/border_top">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:textSize="18sp"
-            android:textColor="#ADADAD"
-            android:text="발표자료"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="18sp"
-            android:textColor="#515151"
-            android:text="doldam.pdf"
-            android:layout_marginBottom="10dp"/>
-
-    </LinearLayout>
-    <LinearLayout
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:orientation="vertical"
@@ -211,13 +184,14 @@
             android:layout_marginLeft="10dp"/>
 
         <TextView
+            android:id="@+id/member1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="18sp"
-            android:textColor="#515151"
+            android:layout_marginBottom="10dp"
             android:text="주완빈, 안진모, 한단비"
-            android:layout_marginBottom="10dp"/>
+            android:textColor="#515151"
+            android:textSize="18sp" />
 
     </LinearLayout>
     <LinearLayout
@@ -237,13 +211,14 @@
             android:layout_marginLeft="10dp"/>
 
         <TextView
+            android:id="@+id/used_tech_txt1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="18sp"
-            android:textColor="#515151"
+            android:layout_marginBottom="10dp"
             android:text="#안드로이드 #VR"
-            android:layout_marginBottom="10dp"/>
+            android:textColor="#515151"
+            android:textSize="18sp" />
 
     </LinearLayout>
 </LinearLayout>

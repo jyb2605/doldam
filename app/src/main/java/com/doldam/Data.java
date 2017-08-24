@@ -1,5 +1,7 @@
 package com.doldam;
 
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 /**
@@ -15,6 +17,9 @@ public class Data {
     private ArrayList<String> tech_list;
     private boolean like = false;
     private int img;
+    private String presentation;
+    private String video;
+
 
     Data(){
         like = false;
@@ -22,7 +27,7 @@ public class Data {
         tech_list = new ArrayList<>();
     }
 
-    Data(String pj_name,String university,String major,String summary,int img){
+    Data(String pj_name,String university,String major,String summary,int img,String presentation,String video){
         like = false;
         member_list = new ArrayList<>();
         tech_list = new ArrayList<>();
@@ -31,9 +36,11 @@ public class Data {
         setMajor(major);
         setSummary(summary);
         setImg(img);
+        setPresentation(presentation);
+        setVideo(video);
     }
 
-    Data(String pj_name,String university,String major,String summary,int img,boolean like){
+    Data(String pj_name,String university,String major,String summary,int img,String presentation,String video,boolean like){
         this.like = like;
         member_list = new ArrayList<>();
         tech_list = new ArrayList<>();
@@ -42,6 +49,8 @@ public class Data {
         setMajor(major);
         setSummary(summary);
         setImg(img);
+        setPresentation(presentation);
+        setVideo(video);
     }
 
     public String getPj_name() {
@@ -92,6 +101,7 @@ public class Data {
     public String getMember(int index){
         return member_list.get(index);
     }
+    public ArrayList<String> getMembers(){return member_list;}
 
     public void addTech(String tech){
         tech_list.add(tech);
@@ -100,6 +110,7 @@ public class Data {
     public String getTech(int index){
         return tech_list.get(index);
     }
+    public ArrayList<String> getTechs(){return tech_list;}
 
     public int getImg() {
         return img;
@@ -107,5 +118,21 @@ public class Data {
 
     public void setImg(int img) {
         this.img = img;
+    }
+
+    public String getPresentation() {
+        return presentation;
+    }
+
+    public void setPresentation(String presentation) {
+        this.presentation = presentation;
+    }
+
+    public String getVideo() {
+        return video;
+    }
+
+    public void setVideo(String video) {
+        this.video = video;
     }
 }

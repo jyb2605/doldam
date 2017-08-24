@@ -29,8 +29,13 @@ public class TimeLineFragment extends Fragment{
 
         ArrayList<Data> item_list = new ArrayList<>();
 
-        item_list.add(new Data("DolDam","인하대학교","컴퓨터공학과","작품을 한줄로 설명하는 공간입니다.작품을 한줄로 설명하는 공간입니다.",R.drawable.cat1,true));
-        item_list.add(new Data("DolDam2","인하대학교","컴퓨터공학과","작품을 한줄로 설명하는 공간입니다.작품을 한줄로 설명하는 공간입니다.",R.drawable.cat2));
+//        item_list.add(new Data("DolDam","인하대학교","컴퓨터공학과","작품을 한줄로 설명하는 공간입니다.작품을 한줄로 설명하는 공간입니다.",R.drawable.cat1,true));
+//        item_list.add(new Data("DolDam2","인하대학교","컴퓨터공학과","작품을 한줄로 설명하는 공간입니다.작품을 한줄로 설명하는 공간입니다.",R.drawable.cat2));
+
+        item_list.add(new Data("DolDam","인하대학교","컴퓨터공학과","작품을 한줄로 설명하는 공간입니다.작품을 한줄로 설명하는 공간입니다.",R.drawable.cat1,"발표자료주소","비디오주소",true));
+        item_list.add(new Data("DolDam2","인하대학교","컴퓨터공학과","작품을 한줄로 설명하는 공간입니다.작품을 한줄로 설명하는 공간입니다.",R.drawable.cat2,"발표자료주소","비디오주소"));
+// 생성자 바껴서 참고해
+
 
         item_list.get(0).addMember("맴버1");
         item_list.get(0).addMember("맴버2");
@@ -44,11 +49,14 @@ public class TimeLineFragment extends Fragment{
         item_list.get(0).addTech("#tech1");
         item_list.get(0).addTech("#tech2");
         item_list.get(0).addTech("#tech3");
+        item_list.get(0).addTech("#tech4");
+
 
 
         item_list.get(1).addTech("#안드로이드");
         item_list.get(1).addTech("#리스트뷰");
         item_list.get(1).addTech("#관리자페이지");
+
 
         myAdapter Adapter = new myAdapter(view.getContext(), R.layout.item, item_list);
         ListView list = (ListView)view.findViewById(R.id.lst_work);
@@ -112,11 +120,30 @@ public class TimeLineFragment extends Fragment{
                 like_btn.setBackground(ContextCompat.getDrawable(convertView.getContext(),R.drawable.heart_off));
             }
 
-            LinearLayout item_layout =(LinearLayout)convertView.findViewById(R.id.item_layout);
-            item_layout.setOnClickListener(new View.OnClickListener(){
+            // 레이아웃 전체 클릭시 디테일 페이지 이동
+//            LinearLayout item_layout =(LinearLayout)convertView.findViewById(R.id.item_layout);
+//            item_layout.setOnClickListener(new View.OnClickListener(){
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(getActivity(), DetailActivity.class);
+//                    startActivity(intent);
+//                }
+//            });
+
+            // 이미지 클릭시 디테일 페이지 이동
+            img.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), DetailActivity.class);
+                    intent.putExtra("project_img",data.getImg());
+                    intent.putExtra("like_btn",data.isLike());
+                    intent.putExtra("pj_name",data.getPj_name());
+                    intent.putExtra("uni_txt",data.getUniversity());
+                    intent.putExtra("major",data.getMajor());
+                    intent.putExtra("presentation",data.getPresentation());
+                    intent.putExtra("video",data.getVideo());
+                    intent.putExtra("member1",data.getMembers());
+                    intent.putExtra("used_tech_txt1",data.getTechs());
                     startActivity(intent);
                 }
             });
@@ -164,14 +191,35 @@ public class TimeLineFragment extends Fragment{
             summary.setText(data.getSummary());
 
             // 기술
-            TextView tech = (TextView)convertView.findViewById(R.id.used_tech_txt1);
-            String _tech="";
-            for(int i=0;i<data.techLength();i++){
-                _tech+=data.getTech(i);
-                _tech+=" ";
-            }
-            tech.setText(_tech);
+            LinearLayout tech_layout = (LinearLayout)convertView.findViewById(R.id.tech_layout);
+            ArrayList<TextView> tech = new ArrayList<>();
+            Toast.makeText(getActivity(),position+"번째"+data.techLength(),Toast.LENGTH_SHORT).show();
 
+            for(int i=0;i<data.techLength();i++){
+                tech.add(new TextView(getActivity()));
+                tech.get(i).setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                tech.get(i).setTextSize(15);
+                tech.get(i).setText(data.getTech(i)+" ");
+
+                tech.get(i).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //헤시테그
+                    }
+                });
+            }
+            for(int i=0;i<data.techLength();i++) {
+                tech_layout.addView(tech.get(i));
+            }
+//            TextView tech = (TextView)convertView.findViewById(R.id.used_tech_txt1);
+//
+//            String _tech="";
+//            for(int i=0;i<data.techLength();i++){
+//                _tech+=data.getTech(i);
+//                _tech+=" ";
+//            }
+//            tech.setText(_tech);
+//
 
             return convertView;
         }
