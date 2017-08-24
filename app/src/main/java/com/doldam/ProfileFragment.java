@@ -23,6 +23,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -57,7 +59,35 @@ public class ProfileFragment extends Fragment{
                 startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
 
 
+            }
+        });
 
+        TextView txtv = (TextView) view.findViewById(R.id.modify_profile);
+        txtv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+
+                intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
+
+                intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+
+
+            }
+        });
+
+        TextView logout = (TextView) view.findViewById(R.id.log_out);
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+
+                ProfileFragment.this.startActivity(intent);
+
+                Toast.makeText(getActivity(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -99,16 +129,7 @@ public class ProfileFragment extends Fragment{
                     ImageView image = (ImageView) getView().findViewById(R.id.profile_imageview);
                     //배치해놓은 ImageView에 set
                     image.setImageBitmap(image_bitmap);
-
-
-
-
-
-                    //Toast.makeText(getBaseContext(), "name_Str : "+name_Str , Toast.LENGTH_SHORT).show();
-
-
-
-
+                    Toast.makeText(getActivity(), "프로필 사진이 수정되었습니다.", Toast.LENGTH_SHORT).show();
 
                 } catch (FileNotFoundException e) {
 

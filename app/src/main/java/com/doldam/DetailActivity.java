@@ -1,22 +1,13 @@
 package com.doldam;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.view.Menu;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by user on 2017-08-23.
@@ -68,10 +59,13 @@ public class DetailActivity extends AppCompatActivity {
         tech.setText(techs);
 
 
-        presentation.setText(Html.fromHtml("<a href=\""+ presentation.getText()+"\">발표자료이름</a>"));
+        presentation.setText(Html.fromHtml("<a href=\""+ presentation.getText()+"\">발표 자료 보기</a>"));
         presentation.setMovementMethod(LinkMovementMethod.getInstance());
 
-        video.setText(Html.fromHtml("<a href=\""+video.getText()+"\">동영상자료이름</a>"));
+
+
+
+        video.setText(Html.fromHtml("<a href=\""+video.getText()+"\">시연 영상 보기</a>"));
         video.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
