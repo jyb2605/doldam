@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -36,7 +37,7 @@ public class TimeLineFragment extends Fragment{
 
         ArrayList<Data> item_list = new ArrayList<>();
 
-        item_list.add(new Data("DolDam","인하대학교","컴퓨터공학과","졸업작품 정보 제공 서비스",R.drawable.logo7,"https://drive.google.com/open?id=0B8gBCAmXbA4VQWZjOUxfZlMwaDQ","https://www.youtube.com/user/inhauniversity",true));
+        item_list.add(new Data("DolDam","인하대학교","컴퓨터공학과","졸업작품 정보 제공 서비스",R.drawable.logo7,"https://drive.google.com/open?id=0B8gBCAmXbA4VQWZjOUxfZlMwaDQ","https://www.youtube.com/user/inhauniversity",true,20));
         item_list.get(0).addMember("안진모");
         item_list.get(0).addMember("주완빈");
         item_list.get(0).addMember("한단비");
@@ -45,7 +46,7 @@ public class TimeLineFragment extends Fragment{
         item_list.get(0).addTech("#안드로이드");
 
 
-        item_list.add(new Data("EyeTracker","인하대학교","컴퓨터공학과","스마트 폰의 전면 카메라를 이용한 시선 추적 인터페이스",R.drawable.team1,"https://drive.google.com/open?id=0B8gBCAmXbA4VQWZjOUxfZlMwaDQ","https://www.youtube.com/watch?v=17kA5VkimdE"));
+        item_list.add(new Data("EyeTracker","인하대학교","컴퓨터공학과","스마트 폰의 전면 카메라를 이용한 시선 추적 인터페이스",R.drawable.team1,"https://drive.google.com/open?id=0B8gBCAmXbA4VQWZjOUxfZlMwaDQ","https://www.youtube.com/watch?v=17kA5VkimdE",false,30));
         item_list.get(1).addMember("박혜렴");
         item_list.get(1).addMember("신동호");
         item_list.get(1).addMember("김현석");
@@ -123,7 +124,7 @@ public class TimeLineFragment extends Fragment{
         item_list.get(10).addTech("#안드로이드");
 
 
-        item_list.add(new Data("CRIS","인하대학교","컴퓨터공학과","재난 대응 시뮬레이션 게임",R.drawable.team11,"https://drive.google.com/open?id=0B8gBCAmXbA4VQWZjOUxfZlMwaDQ","https://www.youtube.com/watch?v=Kq1ceekG1DM"));
+        item_list.add(new Data("CRIS","인하대학교","컴퓨터공학과","재난 대응 시뮬레이션 게임",R.drawable.team11,"https://drive.google.com/open?id=0B8gBCAmXbA4VQWZjOUxfZlMwaDQ","https://www.youtube.com/watch?v=Kq1ceekG1DM",true,200));
         item_list.get(11).addMember("유승재");
         item_list.get(11).addMember("김승환");
         item_list.get(11).addTech("#안드로이드");
@@ -155,6 +156,9 @@ public class TimeLineFragment extends Fragment{
                 if(msg.what ==0) {
                     Log.e(this.getClass().getName(),"WHAT : 0 "+MainActivity.search);
                     Adapter.filter(MainActivity.search);
+                    Adapter.notifyDataSetChanged();
+                }
+                else if(msg.what == 2){
                     Adapter.notifyDataSetChanged();
                 }
                 else{
@@ -258,10 +262,15 @@ public class TimeLineFragment extends Fragment{
                         data.setLike(!data.isLike());
                         if (data.isLike()) {
                             like_btn.setBackground(ContextCompat.getDrawable(finalConvertView.getContext(), R.drawable.heart_on));
+                            data.setNumber_of_like(data.getNumber_of_like()+1);
+                            Toast.makeText(getActivity(), "좋아요" + data.getNumber_of_like(), Toast.LENGTH_SHORT).show();
                         } else {
                             like_btn.setBackground(ContextCompat.getDrawable(finalConvertView.getContext(), R.drawable.heart_off));
+                            data.setNumber_of_like(data.getNumber_of_like()-1);
+                            Toast.makeText(getActivity(), "좋아요" + data.getNumber_of_like(), Toast.LENGTH_SHORT).show();
                         }
-                        Toast.makeText(getActivity(), "상태" + data.isLike(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity(), "상태" + data.isLike(), Toast.LENGTH_SHORT).show();
+                        mhandler.sendEmptyMessage(2);
                     }
                 });
 
@@ -290,6 +299,11 @@ public class TimeLineFragment extends Fragment{
                 // 요약
                 TextView summary = (TextView) convertView.findViewById(R.id.summary_txt);
                 summary.setText(data.getSummary());
+
+                //좋아요 숫자
+                TextView numbers_of_likt = (TextView)convertView.findViewById(R.id.numbers_of_like);
+                numbers_of_likt.setText(String.valueOf(data.getNumber_of_like())+"명이 좋아합니다.");
+
 
                 // 기술
                 LinearLayout tech_layout = (LinearLayout) convertView.findViewById(R.id.tech_layout);
