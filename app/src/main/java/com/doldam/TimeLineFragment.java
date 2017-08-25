@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -36,7 +37,7 @@ public class TimeLineFragment extends Fragment{
 
         ArrayList<Data> item_list = new ArrayList<>();
 
-        item_list.add(new Data("DolDam","인하대학교","컴퓨터공학과","졸업작품 정보 제공 서비스",R.drawable.logo7,"https://drive.google.com/open?id=0B8gBCAmXbA4VQWZjOUxfZlMwaDQ","https://www.youtube.com/user/inhauniversity",true));
+        item_list.add(new Data("DolDam","인하대학교","컴퓨터공학과","졸업작품 정보 제공 서비스",R.drawable.logo7,"https://drive.google.com/open?id=0B8gBCAmXbA4VQWZjOUxfZlMwaDQ","https://www.youtube.com/user/inhauniversity",true,20));
         item_list.get(0).addMember("안진모");
         item_list.get(0).addMember("주완빈");
         item_list.get(0).addMember("한단비");
@@ -45,7 +46,7 @@ public class TimeLineFragment extends Fragment{
         item_list.get(0).addTech("#안드로이드");
 
 
-        item_list.add(new Data("EyeTracker","인하대학교","컴퓨터공학과","스마트 폰의 전면 카메라를 이용한 시선 추적 인터페이스",R.drawable.team1,"https://drive.google.com/open?id=0B8gBCAmXbA4VQWZjOUxfZlMwaDQ","https://www.youtube.com/watch?v=17kA5VkimdE"));
+        item_list.add(new Data("EyeTracker","인하대학교","컴퓨터공학과","스마트 폰의 전면 카메라를 이용한 시선 추적 인터페이스",R.drawable.team1,"https://drive.google.com/open?id=0B8gBCAmXbA4VQWZjOUxfZlMwaDQ","https://www.youtube.com/watch?v=17kA5VkimdE",false,30));
         item_list.get(1).addMember("박혜렴");
         item_list.get(1).addMember("신동호");
         item_list.get(1).addMember("김현석");
@@ -123,7 +124,7 @@ public class TimeLineFragment extends Fragment{
         item_list.get(10).addTech("#안드로이드");
 
 
-        item_list.add(new Data("CRIS","인하대학교","컴퓨터공학과","재난 대응 시뮬레이션 게임",R.drawable.team11,"https://drive.google.com/open?id=0B8gBCAmXbA4VQWZjOUxfZlMwaDQ","https://www.youtube.com/watch?v=Kq1ceekG1DM"));
+        item_list.add(new Data("CRIS","인하대학교","컴퓨터공학과","재난 대응 시뮬레이션 게임",R.drawable.team11,"https://drive.google.com/open?id=0B8gBCAmXbA4VQWZjOUxfZlMwaDQ","https://www.youtube.com/watch?v=Kq1ceekG1DM",true,200));
         item_list.get(11).addMember("유승재");
         item_list.get(11).addMember("김승환");
         item_list.get(11).addTech("#안드로이드");
@@ -153,11 +154,17 @@ public class TimeLineFragment extends Fragment{
         mhandler = new Handler(){
             public void handleMessage(Message msg) {
                 if(msg.what ==0) {
-                    Log.e(this.getClass().getName(),"@@");
+                    Log.e(this.getClass().getName(),"WHAT : 0 "+MainActivity.search);
                     Adapter.filter(MainActivity.search);
-                    Log.e(this.getClass().getName(),"$$");
                     Adapter.notifyDataSetChanged();
-                    Log.e(this.getClass().getName(),"55");
+                }
+                else if(msg.what == 2){
+                    Adapter.notifyDataSetChanged();
+                }
+                else{
+                    Log.e(this.getClass().getName(),"WHAT : 1 "+msg.obj.toString());
+                    Adapter.filter(msg.obj.toString());
+                    Adapter.notifyDataSetChanged();
                 }
             }
         };
@@ -255,10 +262,15 @@ public class TimeLineFragment extends Fragment{
                         data.setLike(!data.isLike());
                         if (data.isLike()) {
                             like_btn.setBackground(ContextCompat.getDrawable(finalConvertView.getContext(), R.drawable.heart_on));
+                            data.setNumber_of_like(data.getNumber_of_like()+1);
+                            Toast.makeText(getActivity(), "좋아요" + data.getNumber_of_like(), Toast.LENGTH_SHORT).show();
                         } else {
                             like_btn.setBackground(ContextCompat.getDrawable(finalConvertView.getContext(), R.drawable.heart_off));
+                            data.setNumber_of_like(data.getNumber_of_like()-1);
+                            Toast.makeText(getActivity(), "좋아요" + data.getNumber_of_like(), Toast.LENGTH_SHORT).show();
                         }
-                        Toast.makeText(getActivity(), "상태" + data.isLike(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity(), "상태" + data.isLike(), Toast.LENGTH_SHORT).show();
+                        mhandler.sendEmptyMessage(2);
                     }
                 });
 
@@ -288,6 +300,11 @@ public class TimeLineFragment extends Fragment{
                 TextView summary = (TextView) convertView.findViewById(R.id.summary_txt);
                 summary.setText(data.getSummary());
 
+                //좋아요 숫자
+                TextView numbers_of_likt = (TextView)convertView.findViewById(R.id.numbers_of_like);
+                numbers_of_likt.setText(String.valueOf(data.getNumber_of_like())+"명이 좋아합니다.");
+
+
                 // 기술
                 LinearLayout tech_layout = (LinearLayout) convertView.findViewById(R.id.tech_layout);
                 final ArrayList<TextView> tech = new ArrayList<>();
@@ -298,16 +315,20 @@ public class TimeLineFragment extends Fragment{
                     tech.get(i).setTextSize(15);
                     tech.get(i).setText(data.getTech(i) + " ");
                     tech_layout.addView(tech.get(i));
+                    final int finalI = i;
                     tech.get(i).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             //헤시테그
-
-
+                            //MainActivity.search = tech.get(finalI).getText().toString();
+                            String temp = tech.get(finalI).getText().toString();
+                            Message msg = mhandler.obtainMessage();
+                            msg.what = 1;
+                            msg.obj = temp;
+                            mhandler.sendMessage(msg);
                         }
                     });
                 }
-
 
             return convertView;
         }
@@ -315,32 +336,71 @@ public class TimeLineFragment extends Fragment{
         public void filter(String search) {
             Log.e(this.getClass().getName(),"filter start");
             searched_list.clear();
-            if (MainActivity.search == "") {
+            if (search == "") {
                 Log.e(this.getClass().getName(),"No Input");
-                searched_list = components_list;
+                for(int i=0;i<components_list.size();i++){
+                    searched_list.add(components_list.get(i));
+                }
             }
 
             Data temp;
-            Log.e(this.getClass().getName(),String.valueOf(components_list.size()));
 
             for (int i = 0; i < components_list.size(); i++) {
                     temp = components_list.get(i);
                     String all = "";
                     all += temp.getPj_name();
+                    all += " ";
                     all += temp.getUniversity();
+                    all += " ";
                     all += temp.getMajor();
+                    all += " ";
                     for (int j = 0; j < temp.memberLength(); j++) {
                         all += temp.getMembers().get(j).toString();
+                        all += " ";
                     }
                     all += temp.getSummary();
+                    all += " ";
                     for (int j = 0; j < temp.techLength(); j++) {
                         all += temp.getTechs().get(j).toString();
+                        all += " ";
                     }
+
+                    Log.e(this.getClass().getName(),all);
 
                     if (all.contains(search)) {
                         searched_list.add(temp);
                     }
                 }
+
+//            this.notifyDataSetChanged();
+//
+            for(int i=0;i<searched_list.size();i++){
+                Log.e(this.getClass().getName(),searched_list.get(i).getPj_name().toString());
+            }
+        }
+
+        public void filter2(String search) {
+            Log.e(this.getClass().getName(),"filter2 start");
+            searched_list.clear();
+            if (search == "") {
+                Log.e(this.getClass().getName(),"No Input");
+                for(int i=0;i<components_list.size();i++){
+                    searched_list.add(components_list.get(i));
+                }
+            }
+
+            Data temp;
+
+            for (int i = 0; i < components_list.size(); i++) {
+                temp = components_list.get(i);
+                for (int j = 0; j < temp.techLength(); j++) {
+                    if(temp.getTech(j).contains(search)){
+                        searched_list.add(temp);
+                        Log.e(this.getClass().getName(),String.valueOf(searched_list.size()));
+                        break;
+                    }
+                }
+            }
 
 //            this.notifyDataSetChanged();
 //

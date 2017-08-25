@@ -19,6 +19,7 @@ public class Data {
     private int img;
     private String presentation;
     private String video;
+    private int number_of_like;
 
 
     Data(){
@@ -51,6 +52,20 @@ public class Data {
         setImg(img);
         setPresentation(presentation);
         setVideo(video);
+    }
+
+    Data(String pj_name,String university,String major,String summary,int img,String presentation,String video,boolean like,int number_of_like){
+        this.like = like;
+        member_list = new ArrayList<>();
+        tech_list = new ArrayList<>();
+        setPj_name(pj_name);
+        setUniversity(university);
+        setMajor(major);
+        setSummary(summary);
+        setImg(img);
+        setPresentation(presentation);
+        setVideo(video);
+        setNumber_of_like(number_of_like);
     }
 
     public String getPj_name() {
@@ -134,5 +149,13 @@ public class Data {
 
     public void setVideo(String video) {
         this.video = video;
+    }
+
+    public int getNumber_of_like() {
+        return number_of_like;
+    }
+
+    public void setNumber_of_like(int number_of_like) {
+        this.number_of_like = number_of_like;
     }
 }
