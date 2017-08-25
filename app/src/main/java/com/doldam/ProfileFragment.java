@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ProfileFragment extends Fragment{
 
@@ -40,6 +41,34 @@ public class ProfileFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, null);
+
+        View.OnClickListener detail = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                ArrayList<Data> item_list = new ArrayList<>();
+                item_list.add(new Data("DolDam","인하대학교","컴퓨터공학과","졸업작품 정보 제공 서비스",R.drawable.logo7,"https://drive.google.com/open?id=0B8gBCAmXbA4VQWZjOUxfZlMwaDQ","https://www.youtube.com/user/inhauniversity",true,217));
+                item_list.get(0).addMember("안진모");
+                item_list.get(0).addMember("주완빈");
+                item_list.get(0).addMember("한단비");
+                item_list.get(0).addTech("#리스트뷰");
+                item_list.get(0).addTech("#뷰페이저");
+                item_list.get(0).addTech("#안드로이드");
+                final Data data = item_list.get(0);
+                intent.putExtra("project_img", data.getImg());
+                intent.putExtra("like_btn", data.isLike());
+                intent.putExtra("pj_name", data.getPj_name());
+                intent.putExtra("uni_txt", data.getUniversity());
+                intent.putExtra("major", data.getMajor());
+                intent.putExtra("presentation", data.getPresentation());
+                intent.putExtra("video", data.getVideo());
+                intent.putExtra("member1", data.getMembers());
+                intent.putExtra("used_tech_txt1", data.getTechs());
+                startActivity(intent);
+
+            }
+        };
+
 
         ImageView imag = (ImageView) view.findViewById(R.id.profile_imageview);
 
@@ -61,6 +90,10 @@ public class ProfileFragment extends Fragment{
 
             }
         });
+
+        //내작품정보
+        TextView myp = (TextView) view.findViewById(R.id.myproject);
+        myp.setOnClickListener(detail);
 
         TextView txtv = (TextView) view.findViewById(R.id.modify_profile);
         txtv.setOnClickListener(new View.OnClickListener() {

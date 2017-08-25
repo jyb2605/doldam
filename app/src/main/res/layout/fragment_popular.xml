@@ -22,8 +22,8 @@
             android:layout_marginRight="50dp"
             app:srcCompat="@drawable/second_rank"
             android:layout_marginEnd="49dp"
-            android:layout_below="@+id/imageButton4"
-            android:layout_toStartOf="@+id/imageButton4" />
+            android:layout_below="@+id/first_project"
+            android:layout_toStartOf="@+id/first_project" />
 
         <ImageView
             android:id="@+id/firstrank"
@@ -43,10 +43,10 @@
             app:srcCompat="@drawable/third_rank"
             android:layout_marginStart="48dp"
             android:layout_alignTop="@+id/secondrank"
-            android:layout_toEndOf="@+id/imageButton4" />
+            android:layout_toEndOf="@+id/first_project" />
 
-        <ImageButton
-            android:id="@+id/imageButton4"
+        <ImageView
+            android:id="@+id/first_project"
             android:layout_width="50dp"
             android:layout_height="50dp"
             app:srcCompat="@drawable/mini_first"
@@ -55,8 +55,8 @@
             android:layout_marginTop="10dp" />
     </RelativeLayout>
 
-    <ImageButton
-        android:id="@+id/imageButton2"
+    <ImageView
+        android:id="@+id/second_project"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="12dp"
@@ -64,13 +64,13 @@
         android:layout_below="@+id/linearLayout"
         android:layout_alignEnd="@+id/textView3" />
 
-    <ImageButton
-        android:id="@+id/imageButton3"
+    <ImageView
+        android:id="@+id/third_project"
         android:layout_width="50dp"
         android:layout_height="50dp"
         app:srcCompat="@drawable/mini_third"
         android:layout_marginStart="15dp"
-        android:layout_alignTop="@+id/imageButton2"
+        android:layout_alignTop="@+id/second_project"
         android:layout_alignStart="@+id/textView4" />
 
     <TextView
@@ -89,14 +89,14 @@
         android:layout_marginTop="9dp"
         android:text="RETRO"
         android:layout_marginEnd="66dp"
-        android:layout_below="@+id/imageButton2"
+        android:layout_below="@+id/second_project"
         android:layout_toStartOf="@+id/textView2" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gaze Tracking"
+        android:text="Eye Tracker"
         android:layout_marginStart="44dp"
         android:layout_alignBaseline="@+id/textView3"
         android:layout_alignBottom="@+id/textView3"

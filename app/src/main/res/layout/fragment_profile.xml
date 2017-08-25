@@ -45,6 +45,7 @@
         android:background="#ffffff">
 
         <TextView
+            android:id="@+id/myproject"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="내 작품 정보"

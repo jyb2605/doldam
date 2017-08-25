@@ -35,6 +35,9 @@ public class DetailActivity extends AppCompatActivity {
         }
         TextView pj_name = (TextView)findViewById(R.id.pj_name);
         pj_name.setText(intent.getExtras().getString("pj_name"));
+        TextView team_name = (TextView)findViewById(R.id.team);
+        team_name.setText("팀 - " + intent.getExtras().getString("pj_name"));
+
         TextView uni = (TextView)findViewById(R.id.uni_txt);
         uni.setText(intent.getExtras().getString("uni_txt"));
         TextView major = (TextView)findViewById(R.id.major);

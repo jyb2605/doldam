@@ -35,6 +35,10 @@ public class AttentionFragment extends Fragment{
         ImageGridAdapter imageGridAdapter = new ImageGridAdapter(getContext(), imageIDs);
         gridViewImages.setAdapter(imageGridAdapter);
 
+
+
+
+
         return view;
     }
 
