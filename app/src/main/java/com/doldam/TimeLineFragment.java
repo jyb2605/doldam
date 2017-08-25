@@ -4,9 +4,12 @@ package com.doldam;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +23,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+
 public class TimeLineFragment extends Fragment{
 
+    watch watcher;
+    Handler mhandler;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,24 +64,37 @@ public class TimeLineFragment extends Fragment{
         item_list.get(1).addTech("#관리자페이지");
 
 
-        myAdapter Adapter = new myAdapter(view.getContext(), R.layout.item, item_list);
+        final myAdapter Adapter = new myAdapter(view.getContext(), R.layout.item, item_list);
         ListView list = (ListView)view.findViewById(R.id.lst_work);
 
         list.setAdapter(Adapter);
+        list.setTextFilterEnabled(true);
 
+        mhandler = new Handler(){
+            public void handleMessege(Message msg) {
+                if(msg.what ==0) {
+                    Adapter.filter(MainActivity.search);
+                }
+            }
+        };
+
+        watcher = new watch(Adapter);
+        watcher.start();
 
         return view;
     }
 
-    public class myAdapter extends BaseAdapter {
+    public class myAdapter extends BaseAdapter{
         Context con;
         LayoutInflater inflater;
         ArrayList<Data> components_list;
+        ArrayList<Data> searched_list;
         int layout;
         myAdapter(Context context, int layout, ArrayList<Data> components_list) {
             con = context;
             this.layout = layout;
             this.components_list = components_list;
+            searched_list = new ArrayList<>();
             inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
             // 멤버변수 초기화
         }
@@ -223,8 +242,60 @@ public class TimeLineFragment extends Fragment{
 
             return convertView;
         }
+
+        public void filter(String search){
+            if(search == ""){
+                searched_list = components_list;
+            }
+            else{
+                Data temp;
+                searched_list.clear();
+                for(int i=0;i<components_list.size();i++){
+                    temp = components_list.get(i);
+                    String all="";
+                    all+=temp.getPj_name();
+                    all+=temp.getUniversity();
+                    all+=temp.getMajor();
+                    for(int j=0;j<temp.memberLength();j++){
+                        all+=temp.getMembers().get(j);
+                    }
+                    all+=temp.getSummary();
+                    for(int j=0;j<temp.techLength();j++){
+                        all+=temp.getTechs().get(i);
+                    }
+
+                    if(all.contains(search)){
+                        searched_list.add(temp);
+                    }
+                }
+            }
+            notifyDataSetChanged();
+        }
     }
 
+    class watch extends Thread{
+        myAdapter adapter;
+        String str;
+
+        public watch(myAdapter adapter){
+            this.adapter = adapter;
+            str = "";
+        }
+
+        public void run(){
+            while (true){
+                try {
+                    sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if(str!=MainActivity.search){
+                    Log.e(this.getClass().getName(),"!!");
+                    mhandler.sendEmptyMessage(0);
+                }
+            }
+        }
+    }
 
 }
 
