@@ -13,7 +13,7 @@
     <ListView
         android:id="@+id/lst_work"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:dividerHeight="40dp"
         android:background="#e5e5e5"
         android:divider="#e5e5e5"
