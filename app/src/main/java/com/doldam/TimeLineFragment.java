@@ -145,17 +145,22 @@ public class TimeLineFragment extends Fragment{
         list.setAdapter(Adapter);
         list.setTextFilterEnabled(true);
 
-        mhandler = new Handler(){
-            public void handleMessege(Message msg) {
-                if(msg.what ==0) {
-                    Adapter.filter(MainActivity.search);
-                }
-            }
-        };
+
 
         watcher = new watch(Adapter);
         watcher.start();
 
+        mhandler = new Handler(){
+            public void handleMessage(Message msg) {
+                if(msg.what ==0) {
+                    Log.e(this.getClass().getName(),"@@");
+                    Adapter.filter(MainActivity.search);
+                    Log.e(this.getClass().getName(),"$$");
+                    Adapter.notifyDataSetChanged();
+                    Log.e(this.getClass().getName(),"55");
+                }
+            }
+        };
         return view;
     }
 
@@ -170,6 +175,9 @@ public class TimeLineFragment extends Fragment{
             this.layout = layout;
             this.components_list = components_list;
             searched_list = new ArrayList<>();
+            for(int i=0;i<components_list.size();i++){
+                searched_list.add(components_list.get(i));
+            }
             inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
             // 멤버변수 초기화
         }
@@ -177,13 +185,13 @@ public class TimeLineFragment extends Fragment{
         @Override
         public int getCount() {
             // TODO Auto-generated method stub
-            return components_list.size();
+            return searched_list.size();
         }
 
         @Override
         public Object getItem(int position) {
             // TODO Auto-generated method stub
-            return components_list.get(position);
+            return searched_list.get(position);
         }
 
         @Override
@@ -199,7 +207,15 @@ public class TimeLineFragment extends Fragment{
                 //cells 를 뷰화시켜서 아이템목록으로 삽입
 
             }
-                final Data data = components_list.get(position);
+
+            if(searched_list.size()==0){
+                for(int i=0;i<components_list.size();i++){
+                    searched_list.add(components_list.get(i));
+                }
+
+            }
+
+                final Data data = searched_list.get(position);
 
                 // 이미지 삽입
                 ImageView img = (ImageView) convertView.findViewById(R.id.project_img);
@@ -297,31 +313,40 @@ public class TimeLineFragment extends Fragment{
         }
 
         public void filter(String search) {
-            if (search == "") {
+            Log.e(this.getClass().getName(),"filter start");
+            searched_list.clear();
+            if (MainActivity.search == "") {
+                Log.e(this.getClass().getName(),"No Input");
                 searched_list = components_list;
-            } else {
-                Data temp;
-                searched_list.clear();
-                for (int i = 0; i < components_list.size(); i++) {
+            }
+
+            Data temp;
+            Log.e(this.getClass().getName(),String.valueOf(components_list.size()));
+
+            for (int i = 0; i < components_list.size(); i++) {
                     temp = components_list.get(i);
                     String all = "";
                     all += temp.getPj_name();
                     all += temp.getUniversity();
                     all += temp.getMajor();
                     for (int j = 0; j < temp.memberLength(); j++) {
-                        all += temp.getMembers().get(j);
+                        all += temp.getMembers().get(j).toString();
                     }
                     all += temp.getSummary();
                     for (int j = 0; j < temp.techLength(); j++) {
-                        all += temp.getTechs().get(i);
+                        all += temp.getTechs().get(j).toString();
                     }
 
                     if (all.contains(search)) {
                         searched_list.add(temp);
                     }
                 }
+
+//            this.notifyDataSetChanged();
+//
+            for(int i=0;i<searched_list.size();i++){
+                Log.e(this.getClass().getName(),searched_list.get(i).getPj_name().toString());
             }
-            notifyDataSetChanged();
         }
     }
 
@@ -342,7 +367,8 @@ public class TimeLineFragment extends Fragment{
                     e.printStackTrace();
                 }
                 if(str!=MainActivity.search){
-                    Log.e(this.getClass().getName(),"!!");
+                    str = MainActivity.search;
+                    Log.e(this.getClass().getName(),MainActivity.search);
                     mhandler.sendEmptyMessage(0);
                 }
             }
