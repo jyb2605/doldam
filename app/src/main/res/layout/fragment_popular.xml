@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/brick_background"
     tools:context="com.doldam.SplashActivity">
 
     <RelativeLayout
@@ -15,30 +16,31 @@
 
         <ImageView
             android:id="@+id/secondrank"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="100dp"
             android:layout_marginRight="50dp"
-            android:layout_marginTop="100dp"
-            app:srcCompat="@drawable/second_doldam" />
+            app:srcCompat="@drawable/second_rank"
+            android:layout_marginEnd="49dp"
+            android:layout_below="@+id/imageButton4"
+            android:layout_toStartOf="@+id/imageButton4" />
 
         <ImageView
             android:id="@+id/firstrank"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginTop="38dp"
-            app:srcCompat="@drawable/first_doldam"
-
+            app:srcCompat="@drawable/first_rank"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
 
         <ImageView
             android:id="@+id/thirdrank"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
-            app:srcCompat="@drawable/third_doldam"
+            app:srcCompat="@drawable/third_rank"
             android:layout_marginStart="48dp"
             android:layout_alignTop="@+id/secondrank"
             android:layout_toEndOf="@+id/imageButton4" />
@@ -57,36 +59,36 @@
         android:id="@+id/imageButton2"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="87dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="12dp"
         app:srcCompat="@drawable/mini_second"
         android:layout_below="@+id/linearLayout"
-        android:layout_alignParentStart="true" />
+        android:layout_alignEnd="@+id/textView3" />
 
     <ImageButton
         android:id="@+id/imageButton3"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="87dp"
         app:srcCompat="@drawable/mini_third"
+        android:layout_marginStart="15dp"
         android:layout_alignTop="@+id/imageButton2"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignStart="@+id/textView4" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout"
+        android:text="돌담"
+        android:layout_alignBottom="@+id/linearLayout"
         android:layout_centerHorizontal="true"
-        android:text="돌담" />
+        android:layout_marginBottom="26dp" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Gaze Tracking"
-        android:layout_marginEnd="35dp"
+        android:layout_marginTop="9dp"
+        android:text="RETRO"
+        android:layout_marginEnd="66dp"
         android:layout_below="@+id/imageButton2"
         android:layout_toStartOf="@+id/textView2" />
 
@@ -94,8 +96,20 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/imageButton3"
-        android:layout_alignTop="@+id/textView3"
-        android:text="RETRO" />
+        android:text="Gaze Tracking"
+        android:layout_marginStart="44dp"
+        android:layout_alignBaseline="@+id/textView3"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_toEndOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이 페이지는 랭크페이지입니다.\n가장 많은 좋아요를 받은 작품이 나타납니다."
+        android:layout_below="@+id/textView4"
+        android:textSize="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="92dp" />
 
 </RelativeLayout>

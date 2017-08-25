@@ -21,7 +21,7 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            app:srcCompat="@drawable/search_icon" />
+            app:srcCompat="@drawable/mini_logo" />
         <EditText
             android:layout_marginLeft="10dp"
             android:id="@+id/editText"
@@ -39,9 +39,8 @@
             />
         <ImageView
             android:layout_width="40dp"
-
             android:layout_height="40dp"
-            app:srcCompat="@drawable/filter" />
+            app:srcCompat="@drawable/search_icon" />
 
     </LinearLayout>
 

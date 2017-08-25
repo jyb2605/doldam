@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#e5e5e5"
     android:orientation="vertical" >
     ﻿
     <GridView
@@ -14,5 +15,15 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp">
     </GridView>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="50dp"
+        android:textSize="20dp"
+        android:paddingTop="20dp"
+
+        android:text="이 페이지는 자신이 좋아요를 누른 \n작품들이 나타나는 페이지 입니다." />
     ﻿
 </LinearLayout>
