@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -18,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -27,12 +27,13 @@ public class TimeLineFragment extends Fragment{
 
     watch watcher;
     Handler mhandler;
+    static ArrayList<Data> item_list = new ArrayList<>();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_timeline, null);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        ArrayList<Data> item_list = new ArrayList<>();
+        item_list.clear();
 
         item_list.add(new Data("DolDam","인하대학교","컴퓨터공학과","졸업작품 정보 제공 서비스",R.drawable.logo7,"https://drive.google.com/open?id=0B8gBCAmXbA4VQWZjOUxfZlMwaDQ","https://www.youtube.com/user/inhauniversity",true,217));
         item_list.get(0).addMember("안진모");
@@ -136,6 +137,13 @@ public class TimeLineFragment extends Fragment{
         item_list.get(12).addTech("#안드로이드");
         item_list.get(12).addTech("#카메라");
         item_list.get(12).addTech("#얼굴인식");
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_timeline, null);
+
 
         final myAdapter Adapter = new myAdapter(view.getContext(), R.layout.item, item_list);
         ListView list = (ListView)view.findViewById(R.id.lst_work);
@@ -260,13 +268,13 @@ public class TimeLineFragment extends Fragment{
                         if (data.isLike()) {
                             like_btn.setBackground(ContextCompat.getDrawable(finalConvertView.getContext(), R.drawable.heart_on));
                             data.setNumber_of_like(data.getNumber_of_like()+1);
-                            Toast.makeText(getActivity(), "좋아요" + data.getNumber_of_like(), Toast.LENGTH_SHORT).show();
+
                         } else {
                             like_btn.setBackground(ContextCompat.getDrawable(finalConvertView.getContext(), R.drawable.heart_off));
                             data.setNumber_of_like(data.getNumber_of_like()-1);
-                            Toast.makeText(getActivity(), "좋아요" + data.getNumber_of_like(), Toast.LENGTH_SHORT).show();
+
                         }
-//                        Toast.makeText(getActivity(), "상태" + data.isLike(), Toast.LENGTH_SHORT).show();
+
                         mhandler.sendEmptyMessage(2);
                     }
                 });
@@ -308,6 +316,7 @@ public class TimeLineFragment extends Fragment{
                 LinearLayout tech_layout = (LinearLayout) convertView.findViewById(R.id.tech_layout);
                 final ArrayList<TextView> tech = new ArrayList<>();
                 tech_layout.removeAllViews();
+
                 for (int i = 0; i < data.techLength(); i++) {
                     tech.add(new TextView(getActivity()));
                     tech.get(i).setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
