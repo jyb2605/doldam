@@ -153,11 +153,14 @@ public class TimeLineFragment extends Fragment{
         mhandler = new Handler(){
             public void handleMessage(Message msg) {
                 if(msg.what ==0) {
-                    Log.e(this.getClass().getName(),"@@");
+                    Log.e(this.getClass().getName(),"WHAT : 0 "+MainActivity.search);
                     Adapter.filter(MainActivity.search);
-                    Log.e(this.getClass().getName(),"$$");
                     Adapter.notifyDataSetChanged();
-                    Log.e(this.getClass().getName(),"55");
+                }
+                else{
+                    Log.e(this.getClass().getName(),"WHAT : 1 "+msg.obj.toString());
+                    Adapter.filter(msg.obj.toString());
+                    Adapter.notifyDataSetChanged();
                 }
             }
         };
@@ -298,16 +301,20 @@ public class TimeLineFragment extends Fragment{
                     tech.get(i).setTextSize(15);
                     tech.get(i).setText(data.getTech(i) + " ");
                     tech_layout.addView(tech.get(i));
+                    final int finalI = i;
                     tech.get(i).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             //헤시테그
-
-
+                            //MainActivity.search = tech.get(finalI).getText().toString();
+                            String temp = tech.get(finalI).getText().toString();
+                            Message msg = mhandler.obtainMessage();
+                            msg.what = 1;
+                            msg.obj = temp;
+                            mhandler.sendMessage(msg);
                         }
                     });
                 }
-
 
             return convertView;
         }
@@ -315,32 +322,71 @@ public class TimeLineFragment extends Fragment{
         public void filter(String search) {
             Log.e(this.getClass().getName(),"filter start");
             searched_list.clear();
-            if (MainActivity.search == "") {
+            if (search == "") {
                 Log.e(this.getClass().getName(),"No Input");
-                searched_list = components_list;
+                for(int i=0;i<components_list.size();i++){
+                    searched_list.add(components_list.get(i));
+                }
             }
 
             Data temp;
-            Log.e(this.getClass().getName(),String.valueOf(components_list.size()));
 
             for (int i = 0; i < components_list.size(); i++) {
                     temp = components_list.get(i);
                     String all = "";
                     all += temp.getPj_name();
+                    all += " ";
                     all += temp.getUniversity();
+                    all += " ";
                     all += temp.getMajor();
+                    all += " ";
                     for (int j = 0; j < temp.memberLength(); j++) {
                         all += temp.getMembers().get(j).toString();
+                        all += " ";
                     }
                     all += temp.getSummary();
+                    all += " ";
                     for (int j = 0; j < temp.techLength(); j++) {
                         all += temp.getTechs().get(j).toString();
+                        all += " ";
                     }
+
+                    Log.e(this.getClass().getName(),all);
 
                     if (all.contains(search)) {
                         searched_list.add(temp);
                     }
                 }
+
+//            this.notifyDataSetChanged();
+//
+            for(int i=0;i<searched_list.size();i++){
+                Log.e(this.getClass().getName(),searched_list.get(i).getPj_name().toString());
+            }
+        }
+
+        public void filter2(String search) {
+            Log.e(this.getClass().getName(),"filter2 start");
+            searched_list.clear();
+            if (search == "") {
+                Log.e(this.getClass().getName(),"No Input");
+                for(int i=0;i<components_list.size();i++){
+                    searched_list.add(components_list.get(i));
+                }
+            }
+
+            Data temp;
+
+            for (int i = 0; i < components_list.size(); i++) {
+                temp = components_list.get(i);
+                for (int j = 0; j < temp.techLength(); j++) {
+                    if(temp.getTech(j).contains(search)){
+                        searched_list.add(temp);
+                        Log.e(this.getClass().getName(),String.valueOf(searched_list.size()));
+                        break;
+                    }
+                }
+            }
 
 //            this.notifyDataSetChanged();
 //
